@@ -17,10 +17,10 @@
  *    shallowCopy({a: 2, b: { a: [1, 2, 3]}}) => {a: 2, b: { a: [1, 2, 3]}}
  *    shallowCopy({}) => {}
  */
-function shallowCopy(/* obj */) {
-  throw new Error('Not implemented');
+function shallowCopy(obj) {
+  const objDefault = {};
+  return Object.assign(objDefault, obj);
 }
-
 /**
  * Merges array of objects into a single object. If there are overlapping keys, the values
  * should be summed.
@@ -32,8 +32,15 @@ function shallowCopy(/* obj */) {
  *    mergeObjects([{a: 1, b: 2}, {b: 3, c: 5}]) => {a: 1, b: 5, c: 5}
  *    mergeObjects([]) => {}
  */
-function mergeObjects(/* objects */) {
-  throw new Error('Not implemented');
+function mergeObjects(objects) {
+  const objDefault = {};
+  objects.forEach((obj) => {
+    Object.entries(obj).forEach((e) => {
+      const [key, value] = e;
+      objDefault[key] = objDefault[key] ? objDefault[key] + value : value;
+    });
+  });
+  return objDefault;
 }
 
 /**
@@ -49,8 +56,13 @@ function mergeObjects(/* objects */) {
  *    removeProperties({name: 'John', age: 30, city: 'New York'}, 'age') => {name: 'John', city: 'New York'}
  *
  */
-function removeProperties(/* obj, keys */) {
-  throw new Error('Not implemented');
+function removeProperties(obj, keys) {
+  const objDefault = {};
+  Object.assign(objDefault, obj);
+  keys.forEach((i) => {
+    delete objDefault[i];
+  });
+  return objDefault;
 }
 
 /**
